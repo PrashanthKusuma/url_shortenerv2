@@ -22,6 +22,8 @@ const AnonymousShortener = () => {
   const [openEdit, setOpenEdit] = useState(false);
   const [openEditUrl, setOpenEditUrl] = useState(false);
   const [customUrl, setCustomUrl] = useState();
+  const [urlObj, setUrlObj] = useState([])
+  const [id,setId] = useState(0)
   function keygen() {
     const characters =
       "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890";
@@ -36,6 +38,9 @@ const AnonymousShortener = () => {
     setShortenUrl(keygen());
     setSubmitted(true);
     setUrl("");
+    setId(id+1)
+    setUrlObj([...urlObj,{id: shortenUrl, url}]);
+    localStorage.setItem("urls", JSON.stringify(urlObj));
   };
   const copy = async (url) => {
     try {
