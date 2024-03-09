@@ -22,8 +22,8 @@ const AnonymousShortener = () => {
   const [openEdit, setOpenEdit] = useState(false);
   const [openEditUrl, setOpenEditUrl] = useState(false);
   const [customUrl, setCustomUrl] = useState();
-  const [urlObj, setUrlObj] = useState([])
-  const [id,setId] = useState(0)
+  const [id, setId] = useState(1)
+  let urlObj=[]
   function keygen() {
     const characters =
       "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890";
@@ -34,13 +34,15 @@ const AnonymousShortener = () => {
     }
     return char;
   }
-  const handleSubmit = () => {
-    setShortenUrl(keygen());
+  const handleSubmit = (data) => {
+    
     setSubmitted(true);
     setUrl("");
     setId(id+1)
-    setUrlObj([...urlObj,{id: shortenUrl, url}]);
+    urlObj.push(...JSON.parse(localStorage.getItem('urls'))?JSON.parse(localStorage.getItem('urls')):[], { "id": id, "shortenUrl": data, "url": url })
+    // console.log("type", JSON.parse(localStorage.getItem('urls'))?JSON.parse(localStorage.getItem('urls')):[])
     localStorage.setItem("urls", JSON.stringify(urlObj));
+    // setShortenUrl(keygen());
   };
   const copy = async (url) => {
     try {
@@ -274,7 +276,7 @@ const AnonymousShortener = () => {
                 <Button
                   variant="contained"
                   disableElevation
-                  onClick={handleSubmit}
+                  onClick={()=>handleSubmit(shortenUrl)}
                   sx={{ height: "40px" }}
                 >
                   submit
