@@ -285,7 +285,7 @@ const AnonymousShortener = () => {
                   backgroundColor: "#E9FBF0",
                   border: "1px solid #C6F6D9",
                   width: 400,
-                  height: 50,
+                  height: "auto",
                   display: "flex",
                   justifyContent: "space-between",
                 }}
